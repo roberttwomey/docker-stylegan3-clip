@@ -30,7 +30,7 @@ COPY start-notebook.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/start-notebook.sh && \
     apt-get clean
 RUN git clone https://github.com/NVlabs/stylegan3.git
-RUN git clone clone https://github.com/openai/CLIP
+RUN git clone https://github.com/openai/CLIP
 RUN pip install -e ./CLIP
 RUN git clone https://huggingface.co/justinpinkney/stylegan3-t-lhq-256
 CMD ["/usr/local/bin/start-notebook.sh"]
