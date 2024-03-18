@@ -25,7 +25,7 @@ RUN pip install jupyterlab imageio imageio-ffmpeg==0.4.4 pyspng==0.1.0 scipy==1.
 RUN pip install --upgrade torch==1.11.0+cu113 torchvision==0.12.0+cu113 -f https://download.pytorch.org/whl/torch_stable.html
 RUN pip install einops ninja
 COPY readme.ipynb /content/
-RUN wget https://api.ngc.nvidia.com/v2/models/nvidia/research/stylegan3/versions/1/files/stylegan3-r-ffhq-1024x1024.pkl
+#RUN wget https://api.ngc.nvidia.com/v2/models/nvidia/research/stylegan3/versions/1/files/stylegan3-r-ffhq-1024x1024.pkl
 COPY start-notebook.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/start-notebook.sh && \
     apt-get clean
@@ -33,5 +33,8 @@ RUN git clone https://github.com/NVlabs/stylegan3.git
 RUN git clone https://github.com/openai/CLIP
 RUN pip install -e ./CLIP
 RUN git clone https://huggingface.co/justinpinkney/stylegan3-t-lhq-256
+COPY stylegan3-t-lhq-256/lhq-256-stylegan3-t-25Mimg.pkl /content/
+RUN git clone https://github.com/roberttwomey/beyond-tbb-code/
+COPY beyond-tbb-code/backgrounds/CLIP-StyleGAN3.ipynb /content/
 CMD ["/usr/local/bin/start-notebook.sh"]
 
