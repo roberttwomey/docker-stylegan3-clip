@@ -4,9 +4,7 @@ rtwomey@unl.edu 2024
 
 ---
 
-Adapted from [Jeff Heaton's](http://www.heatonresearch.com) Docker image for running Stylegan3 with GPU. 
-* GitHub: https://github.com/jeffheaton/docker-stylegan3
-* DockerHub: https://hub.docker.com/r/heatonresearch/stylegan3
+Adapted from [Jeff Heaton's](http://www.heatonresearch.com) [Docker image](https://github.com/jeffheaton/docker-stylegan3) for running Stylegan3 with GPU. 
 
 This dockerfile is intended to be run from Docker. To start a container from this image run something similar to the following:
 
