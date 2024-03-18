@@ -10,19 +10,51 @@ Adapted from [Jeff Heaton's](http://www.heatonresearch.com) Docker image for run
 
 This dockerfile is intended to be run from Docker. To start a container from this image run something similar to the following:
 
-```
-sudo docker run -it --gpus all -u $(id -u):$(id -g) -p 8888:8888  -v /home/username/:/content/mnt heatonresearch/stylegan3
-```
-
-The above command establishes the following:
-
-* ```-u $(id -u):$(id -g)``` - This causes the user to be logged into Docker to be the same as the user running the Docker command.  This ensures that all permissions and ownerships are correct on the mounted volumes.
-* ```/home/username/:/content/mnt``` - You should mount a volume to access your images and store results to.
-* ```/bin/bash``` - Optional: You can start the BASH shell to allow you to execute commands.
-
-```
-cd /home/stylegan2-ada/
-python dataset_tool.py create_from_images /mnt/datasets/fish /mnt/data/fish
+```bash
+sudo docker run -it --gpus all -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v $(pwd)/work:/content/mnt gitlab-registry.nrp-nautilus.io/rtwomey/docker-stylegan3-clip
 ```
 
-Refer to readme.ipynb for information on training and converting images.
+# Docker Workflow
+
+## push to Nautilus gitlab
+
+```bash
+git remote add nautilus https://gitlab.nrp-nautilus.io/rtwomey/docker-stylegan3-clip
+git push nautilus
+```
+ 
+## push docker image to nautilus gitlab container registry
+
+login to gitlab
+```bash
+docker login gitlab-registry.nrp-nautilus.io -u rtwomey
+```
+
+build and push to gitlab container registry
+```bash
+docker build -t gitlab-registry.nrp-nautilus.io/rtwomey/docker-stylegan3-clip .
+docker push gitlab-registry.nrp-nautilus.io/rtwomey/docker-stylegan3-clip
+```
+
+
+In the gitlab repo, select **Deploy -> Container Registry** 
+
+![[Pasted image 20240318060733.png]]
+
+## Run docker image
+
+launch docker: 
+```bash
+sudo docker run -it --gpus all -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v $(pwd)/work:/content/mnt gitlab-registry.nrp-nautilus.io/rtwomey/docker-stylegan3-clip
+```
+
+port forwarding (run on local macbook air):
+```bash
+ssh -N -L localhost:8888:localhost:8888 user@z8.local
+```
+
+start script **start-sg3.sh** (run from z8 home directory):
+```bash
+#!/bin/bash
+docker run -it --gpus all -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v $(pwd)/work:/content/mnt gitlab-registry.nrp-nautilus.io/rtwomey/docker-stylegan3-clip
+```
