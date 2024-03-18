@@ -33,8 +33,8 @@ RUN git clone https://github.com/NVlabs/stylegan3.git
 RUN git clone https://github.com/openai/CLIP
 RUN pip install -e ./CLIP
 RUN git clone https://huggingface.co/justinpinkney/stylegan3-t-lhq-256
-COPY stylegan3-t-lhq-256/lhq-256-stylegan3-t-25Mimg.pkl /content/
+#COPY stylegan3-t-lhq-256/lhq-256-stylegan3-t-25Mimg.pkl /content/
 RUN git clone https://github.com/roberttwomey/beyond-tbb-code/
-COPY beyond-tbb-code/backgrounds/CLIP-StyleGAN3.ipynb /content/
+#COPY beyond-tbb-code/backgrounds/CLIP-StyleGAN3.ipynb /content/
 CMD ["/usr/local/bin/start-notebook.sh"]
 
