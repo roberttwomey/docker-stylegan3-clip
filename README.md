@@ -1,5 +1,5 @@
 # Docker file to run StyleGAN3 + CLIP, docker-stylegan3-clip
-* Licensed under the MIT license
+
 rtwomey@unl.edu 2024
 
 ---
